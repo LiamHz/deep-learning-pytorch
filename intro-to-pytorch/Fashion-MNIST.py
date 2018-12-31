@@ -19,12 +19,12 @@ testset = datasets.FashionMNIST('~/.pytorch/F_MNIST_data/', download=True, train
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
 
 # # Test image loading
-# image, label = next(iter(trainloader))
-# helper.imshow(image[0,:])
-# plt.show()
+image, label = next(iter(trainloader))
+helper.imshow(image[0,:])
+plt.show()
 
 # Parmeters
-device = torch.device('cuda')
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 input_dimension = 784
 hidden_layer_1_dimension = 256
 hidden_layer_2_dimension = 128
@@ -66,8 +66,8 @@ validation_loss = []
 for e in range(epochs):
     running_loss = 0
     for images, labels in trainloader:
-        images = images.view(images.shape[0], -1).cuda()
-        labels = labels.cuda()
+        images = images.view(images.shape[0], -1).to(device)
+        labels = labels.to(device)
 
         optimizer.zero_grad()
 
@@ -89,8 +89,8 @@ for e in range(epochs):
             model.eval()
 
             for images, labels in testloader:
-                images = images.view(images.shape[0], -1).cuda()
-                labels = labels.cuda()
+                images = images.view(images.shape[0], -1).to(device)
+                labels = labels.to(device)
 
                 log_ps = model(images).to(device)
                 test_loss += criterion(log_ps, labels)
@@ -102,7 +102,7 @@ for e in range(epochs):
                 # top_class is tensor with shape (64, 1)
                 # labels is 1D with shape (64)
                 # labels has to be reshaped to have equality work
-                num_correct_predictions = top_class == labels.view(*top_class.shape).cuda()
+                num_correct_predictions = top_class == labels.view(*top_class.shape).to(device)
 
                 # correct_prediction is a ByteTensor and has to be converted to a FloatTensor for torch.mean
                 accuracy += torch.mean(num_correct_predictions.type(torch.FloatTensor))
@@ -140,7 +140,7 @@ images, labels = dataiter.next()
 img = images[0]
 
 # Convert 2D image to 1D vector
-img = img.resize_(1, 784).cuda()
+img = img.resize_(1, 784).to(device)
 
 with torch.no_grad():
     output = model.forward(img)
