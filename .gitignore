@@ -117,7 +117,6 @@ dmypy.json
 *.gif
 *.ipynb
 intro-to-pytorch/README.md
-intro-to-pytorch/helper.py
 intro-to-pytorch/fc_model.py
 intro-to-pytorch/assets/tensor_examples.svg
 intro-to-pytorch/assets/infographic.pdf
