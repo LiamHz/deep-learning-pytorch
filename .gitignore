@@ -120,3 +120,4 @@ intro-to-pytorch/README.md
 intro-to-pytorch/fc_model.py
 intro-to-pytorch/assets/tensor_examples.svg
 intro-to-pytorch/assets/infographic.pdf
+*.pth

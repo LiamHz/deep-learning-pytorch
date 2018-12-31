@@ -31,7 +31,9 @@ hidden_layer_2_dimension = 128
 hidden_layer_3_dimension = 64
 output_dimension = 10
 dropout_rate = 0.2
-epochs = 10
+epochs = 2
+load_model = True
+save_model = False
 
 # Model Architecture
 model = nn.Sequential(
@@ -49,6 +51,10 @@ model = nn.Sequential(
         ).to(device)
 
 print(model)
+
+if load_model:
+    state_dict = torch.load("checkpoint.pth")
+    model.load_state_dict(state_dict)
 
 # Loss and optimizer
 criterion = nn.NLLLoss()
@@ -112,6 +118,8 @@ for e in range(epochs):
         # Set model back to train mode
         model.train()
 
+if save_model:
+    torch.save(model.state_dict(), 'checkpoint.pth')
 
 # Plot training and validation loss over epochs
 plt.plot(training_loss, label="Training loss")
