@@ -39,13 +39,13 @@ save_model = False
 model = nn.Sequential(
             nn.Linear(input_dimension, hidden_layer_1_dimension),
             nn.ReLU(),
-            # nn.Dropout(dropout_rate),
+            nn.Dropout(dropout_rate),
             nn.Linear(hidden_layer_1_dimension, hidden_layer_2_dimension),
             nn.ReLU(),
-            # nn.Dropout(dropout_rate),
+            nn.Dropout(dropout_rate),
             nn.Linear(hidden_layer_2_dimension, hidden_layer_3_dimension),
             nn.ReLU(),
-            # nn.Dropout(dropout_rate),
+            nn.Dropout(dropout_rate),
             nn.Linear(hidden_layer_3_dimension, output_dimension),
             nn.LogSoftmax(dim=1)
         ).to(device)

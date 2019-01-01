@@ -122,3 +122,4 @@ intro-to-pytorch/assets/tensor_examples.svg
 intro-to-pytorch/assets/infographic.pdf
 *.pth
 cat-dog-classifier.py
+convolutional-neural-networks/data/
